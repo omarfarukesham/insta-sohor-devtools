@@ -1,19 +1,17 @@
 //data load from local api here 
-const loadPosts = () =>{
-  let url = './data/posts.json'
-  fetch(url)
-  .then(res => res.json())
-  .then(data => showPosts(data))
-}
+// const loadPosts = () =>{
+//   let url = './data/posts.json'
+//   fetch(url)
+//   .then(res => res.json())
+//   .then(data => showPosts(data))
+// }
 
-
-
-
-let posts=[ ];
-const likedPostsId = [];
-const reportedPostsId = [];
+let posts=[];
+let likedPostsId = [];
+let reportedPostsId = [];
 
 const getLikedPosts = () => {
+ 
     return posts.filter((post) => likedPostsId.includes(post.id));
 };
 
@@ -26,8 +24,10 @@ const isLiked = (id) => {
 };
 
 const addToLiked = (id) => {
-    likedPostsId.plus(id); 
-    showPosts(posts);
+   likedPostsId.push(id) ; 
+   console.log(likedPostsId)
+
+   showPosts(posts)
 };
 
 const reportPost = (id) => {
@@ -61,7 +61,7 @@ const switchTab = (id) => {
 };
 
 const createPost = (post) => {
-  console.log(post)
+  //console.log(post)
     const image = post.image;
     const div = document.createElement( "article" );
     div.classList.add( "post" );
@@ -96,7 +96,7 @@ const createPost = (post) => {
               <div class="post__footer">
                 <div class="post__buttons">
                   <button class="post__button" onclick="addToLiked(${post.id})">
-                  <i class="fa-solid fa-heart ${isLiked(post.id) && "text-danger"}"></i>
+                  <i class="fa-solid fa-heart ${(post.id) && "text-danger"}"></i>
                     
                   </button>
                   <button class="post__button">
@@ -106,9 +106,7 @@ const createPost = (post) => {
 
                   <div class="post__indicators"></div>
 
-                  <button class="post__button post__button--align-right" onclick="reportPost(${
-                      post.id
-                  })">
+                  <button class="post__button post__button--align-right" onclick="reportPost(${post.id})">
                     <i class="fa-solid fa-ban"></i>
                   </button>
                 </div>
@@ -146,7 +144,7 @@ const createPost = (post) => {
 const showPosts = (posts) => {
     const productsContainer = document.getElementById( "posts" );
     productsContainer.innerHTML = "";
-
+   // console.log(posts)
     posts.forEach((post) => {
         const div = createPost(post);
         productsContainer.appendChild(div);
@@ -155,7 +153,9 @@ const showPosts = (posts) => {
 
 const displayLikedPosts = () => {
     const likedPosts = getLikedPosts();
+    console.log(likedPosts)
     likedPosts.forEach((post) => {
+
         const div = createPost(post);
         document.getElementById( "liked" ).appendChild(div);
     });
@@ -163,11 +163,18 @@ const displayLikedPosts = () => {
 
 const displayReportedPosts = () => {
     const reportedPosts = getReportedPosts();
-    posts.forEach((post) => {
+    reportedPosts.forEach((post) => {
         const div = createPost(post);
         document.getElementById( "reported" ).appendChild(div);
     });
 };
 
+const loadPosts = async () =>{
+  let data = await fetch('./data/posts.json');
+  posts = await data.json();
+  showPosts(posts);
+}
+
 loadPosts();
+
 
