@@ -61,19 +61,16 @@ const switchTab = (id) => {
 };
 
 const createPost = (post) => {
-  //console.log(post)
+    console.log(post)
     const image = post.image;
+    console.log(image)
     const div = document.createElement( "article" );
     div.classList.add( "post" );
     div.innerHTML = `
               <div class="post__header">
                 <div class="post__profile">
-                  <a
-                    href="https://github.com/ProgrammingHero1"
-                    target="_blank"
-                    class="post__avatar"
-                  >
-                    <img src="${image}" alt="User Picture" />
+                  <a href="https://github.com/ProgrammingHero1" target="_blank" class="post__avatar" >
+                    <img src="${post.userImage}" alt="User Picture" />
                   </a>
                   <a href="#" class="post__user">phero</a>
                 </div>
@@ -96,7 +93,7 @@ const createPost = (post) => {
               <div class="post__footer">
                 <div class="post__buttons">
                   <button class="post__button" onclick="addToLiked(${post.id})">
-                  <i class="fa-solid fa-heart ${(post.id) && "text-danger"}"></i>
+                  <i class="fa-solid fa-heart ${isLiked(post.id) && "text-danger"}"></i>
                     
                   </button>
                   <button class="post__button">
