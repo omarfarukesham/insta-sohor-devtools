@@ -1,5 +1,15 @@
-let posts=[ ];
+//data load from local api here 
+const loadPosts = () =>{
+  let url = './data/posts.json'
+  fetch(url)
+  .then(res => res.json())
+  .then(data => showPosts(data))
+}
 
+
+
+
+let posts=[ ];
 const likedPostsId = [];
 const reportedPostsId = [];
 
@@ -51,6 +61,7 @@ const switchTab = (id) => {
 };
 
 const createPost = (post) => {
+  console.log(post)
     const image = post.image;
     const div = document.createElement( "article" );
     div.classList.add( "post" );
@@ -158,10 +169,5 @@ const displayReportedPosts = () => {
     });
 };
 
-const loadPosts = async () =>{
-  let data = await fetch('../data/posts.json');
-  posts = await data.json();
-  showPosts(posts);
-}
-
 loadPosts();
+
