@@ -25,8 +25,6 @@ const isLiked = (id) => {
 
 const addToLiked = (id) => {
    likedPostsId.push(id) ; 
-   console.log(likedPostsId)
-
    showPosts(posts)
 };
 
@@ -37,7 +35,11 @@ const reportPost = (id) => {
 };
 
 const displayContent = (text) => {
+   if( text.length > 30 ){
     return text.length < 30 ? 'text' : text.slice(0, 30) + "<span class='fw-bold'>... read more</span>";
+   }else{
+     return text
+   }
 };
 
 const switchTab = (id) => {
@@ -61,9 +63,8 @@ const switchTab = (id) => {
 };
 
 const createPost = (post) => {
-    console.log(post)
+    //console.log(post)
     const image = post.image;
-    console.log(image)
     const div = document.createElement( "article" );
     div.classList.add( "post" );
     div.innerHTML = `
@@ -150,7 +151,7 @@ const showPosts = (posts) => {
 
 const displayLikedPosts = () => {
     const likedPosts = getLikedPosts();
-    console.log(likedPosts)
+   // console.log(likedPosts)
     likedPosts.forEach((post) => {
 
         const div = createPost(post);
