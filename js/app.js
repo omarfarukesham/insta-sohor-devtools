@@ -1,11 +1,3 @@
-//data load from local api here 
-// const loadPosts = () =>{
-//   let url = './data/posts.json'
-//   fetch(url)
-//   .then(res => res.json())
-//   .then(data => showPosts(data))
-// }
-
 let posts=[];
 let likedPostsId = [];
 let reportedPostsId = [];
